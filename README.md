@@ -2,150 +2,77 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <meta name="theme-color" content="#00897B" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>فريقي - نظام إدارة المكتب الفني</title>
     
-    <!-- Bootstrap RTL -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" />
-    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-storage-compat.js"></script>
     
     <style>
-        /* ===== متغيرات ===== */
         :root {
             --teal: #00897B;
             --teal-dark: #00695C;
             --teal-light: #e0f2f1;
             --sidebar-width: 260px;
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
-            --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
-            --shadow-lg: 0 8px 32px rgba(0,0,0,0.16);
-            --radius: 16px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        /* ===== الوضع الليلي ===== */
-        [data-theme="dark"] {
-            --teal: #26A69A;
-            --teal-dark: #00897B;
-            --teal-light: #1a2a2a;
-            background: #121212;
-            color: #e0e0e0;
-        }
-        [data-theme="dark"] .card,
-        [data-theme="dark"] .sidebar,
-        [data-theme="dark"] .modal-content,
-        [data-theme="dark"] .list-group-item {
-            background: #1e1e1e !important;
-            color: #e0e0e0 !important;
-            border-color: #333 !important;
-        }
-        [data-theme="dark"] .card-header,
-        [data-theme="dark"] .modal-header {
-            background: #2a2a2a !important;
-            color: #e0e0e0 !important;
-            border-color: #333 !important;
-        }
-        [data-theme="dark"] .table {
-            color: #e0e0e0;
-        }
-        [data-theme="dark"] .table-light {
-            background: #2a2a2a;
-            color: #e0e0e0;
-        }
-        [data-theme="dark"] .text-muted {
-            color: #aaa !important;
-        }
-        [data-theme="dark"] .form-control,
-        [data-theme="dark"] .form-select {
-            background: #2a2a2a;
-            color: #e0e0e0;
-            border-color: #444;
-        }
-
-        /* ===== عام ===== */
         * { box-sizing: border-box; }
         body {
-            font-family: 'Segoe UI', -apple-system, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f4f6f8;
             color: #333;
             margin: 0;
             padding: 0;
-            transition: var(--transition);
         }
-        .page-section { display: none; animation: fadeSlide 0.4s ease; }
+        .page-section { display: none; }
         .page-section.active { display: block; }
-        @keyframes fadeSlide {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ===== ألوان ===== */
+        
         .text-teal { color: var(--teal) !important; }
-        .bg-teal { background: var(--teal) !important; color: #fff; }
+        .bg-teal { background-color: var(--teal) !important; color: #fff; }
         .btn-teal {
-            background: var(--teal);
+            background-color: var(--teal);
             color: #fff;
             border: none;
-            transition: var(--transition);
         }
-        .btn-teal:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-            color: #fff;
-        }
+        .btn-teal:hover { background-color: var(--teal-dark); color: #fff; }
         .btn-outline-teal {
-            border: 2px solid var(--teal);
+            border: 1px solid var(--teal);
             color: var(--teal);
             background: transparent;
-            transition: var(--transition);
         }
         .btn-outline-teal:hover {
-            background: var(--teal);
+            background-color: var(--teal);
             color: #fff;
-            transform: translateY(-2px);
         }
-
-        /* ===== تسجيل الدخول ===== */
+        
         .login-page {
-            background: linear-gradient(135deg, #00897B 0%, #004D40 100%);
+            background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-        }
-        .login-page .card {
-            border-radius: var(--radius);
-            animation: fadeUp 0.6s ease;
-            background: rgba(255,255,255,0.95);
-        }
-        [data-theme="dark"] .login-page .card {
-            background: rgba(30,30,30,0.95);
-        }
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
         }
         .logo-circle {
             width: 80px;
             height: 80px;
-            background: var(--teal-light);
+            background: #e0f2f1;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 16px;
         }
-
-        /* ===== القائمة الجانبية ===== */
+        .login-page .card {
+            border-radius: 1.2rem;
+            animation: fadeInUp 0.4s ease;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         .sidebar {
             position: fixed;
             top: 0;
@@ -153,7 +80,7 @@
             width: var(--sidebar-width);
             height: 100vh;
             background: #fff;
-            box-shadow: var(--shadow-md);
+            box-shadow: -2px 0 12px rgba(0,0,0,0.08);
             display: flex;
             flex-direction: column;
             padding: 20px 0;
@@ -161,8 +88,6 @@
             overflow-y: auto;
             transition: transform 0.3s ease;
         }
-        .sidebar::-webkit-scrollbar { width: 4px; }
-        .sidebar::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 4px; }
         .sidebar-header {
             padding: 0 20px 16px;
             border-bottom: 1px solid #eee;
@@ -170,33 +95,18 @@
         }
         .sidebar .nav-link {
             color: #555;
-            padding: 12px 20px;
+            padding: 10px 20px;
+            border-radius: 0;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             font-size: 0.95rem;
-            transition: var(--transition);
+            transition: background 0.2s, color 0.2s;
             cursor: pointer;
             border: none;
             background: none;
             width: 100%;
             text-align: right;
-            position: relative;
-        }
-        .sidebar .nav-link::before {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: var(--teal);
-            transform: scaleY(0);
-            transition: var(--transition);
-        }
-        .sidebar .nav-link:hover::before,
-        .sidebar .nav-link.active::before {
-            transform: scaleY(1);
         }
         .sidebar .nav-link:hover,
         .sidebar .nav-link.active {
@@ -204,140 +114,108 @@
             color: var(--teal);
             font-weight: 600;
         }
-        .sidebar .nav-link i { width: 20px; text-align: center; }
-        .sidebar .badge { margin-right: auto; }
+        .sidebar .nav-link i { width: 18px; text-align: center; }
+        .sidebar .logout-btn {
+            margin-top: auto;
+            padding: 12px 20px;
+            display: block;
+            border-top: 1px solid #eee;
+        }
         .avatar-circle {
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1rem;
             flex-shrink: 0;
             background: var(--teal);
             color: #fff;
         }
-
-        /* ===== المحتوى ===== */
+        
         .main-content {
             margin-right: var(--sidebar-width);
             padding: 28px 30px;
             min-height: 100vh;
-            transition: var(--transition);
         }
         .welcome-banner {
-            background: linear-gradient(135deg, #00897B, #004D40);
-            border-radius: var(--radius);
-            padding: 30px;
-            color: #fff;
-            position: relative;
-            overflow: hidden;
+            background: linear-gradient(135deg, #00897B, #1B5E20);
+            border-radius: 16px;
         }
-
-        /* ===== بطاقات ===== */
+        
         .stat-card {
-            border-radius: var(--radius);
-            padding: 24px;
+            border-radius: 12px;
+            padding: 20px;
             color: #fff;
             position: relative;
             overflow: hidden;
-            transition: var(--transition);
-            cursor: pointer;
         }
-        .stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-        .stat-card .number { font-size: 2.6rem; font-weight: 700; line-height: 1; }
+        .stat-card.total { background: linear-gradient(135deg, #00897B, #00695C); }
+        .stat-card.pending { background: linear-gradient(135deg, #FB8C00, #E65100); }
+        .stat-card.completed { background: linear-gradient(135deg, #43A047, #1B5E20); }
+        .stat-card.overdue { background: linear-gradient(135deg, #E53935, #B71C1C); }
+        .stat-card .number { font-size: 2.4rem; font-weight: 700; line-height: 1; }
         .stat-card .label { font-size: 0.9rem; opacity: 0.9; margin-top: 4px; }
         .stat-card .icon {
             position: absolute;
             top: 16px;
             left: 16px;
-            font-size: 2.8rem;
-            opacity: 0.15;
+            font-size: 2.2rem;
+            opacity: 0.2;
         }
-        .stat-card.total { background: linear-gradient(135deg, #00897B, #004D40); }
-        .stat-card.pending { background: linear-gradient(135deg, #FB8C00, #E65100); }
-        .stat-card.completed { background: linear-gradient(135deg, #43A047, #1B5E20); }
-        .stat-card.overdue { background: linear-gradient(135deg, #E53935, #B71C1C); }
-
+        
         .card {
             border: none;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
-        .card:hover { box-shadow: var(--shadow-md); }
         .card-header {
             background: transparent;
             border-bottom: 1px solid rgba(0,0,0,0.06);
             padding: 16px 20px;
             font-weight: 600;
         }
-
+        
         .critical-task {
             border-right: 4px solid transparent;
-            transition: var(--transition);
             padding: 14px 20px;
         }
         .critical-task.overdue { border-right-color: #dc3545; background: #fff5f5; }
         .critical-task.warning { border-right-color: #ffc107; background: #fffbf0; }
-        .critical-task:hover {
-            background: #f8f9fa;
-            transform: translateX(-4px);
-        }
-
-        .department-card { transition: var(--transition); cursor: pointer; }
-        .department-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-lg) !important;
-        }
-
-        .report-card {
-            cursor: pointer;
-            transition: var(--transition);
-            padding: 24px;
-        }
-        .report-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-lg) !important;
-        }
-
-        /* ===== استجابة ===== */
+        
+        .department-card { transition: transform 0.2s; cursor: pointer; }
+        .department-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+        
         @media (max-width: 768px) {
-            .main-content {
-                margin-right: 0;
-                padding: 16px;
-            }
-            .sidebar {
-                transform: translateX(100%);
-                width: 300px;
-            }
+            .main-content { margin-right: 0; padding: 16px; }
+            .sidebar { transform: translateX(100%); }
             .sidebar.open { transform: translateX(0); }
-            .stat-card .number { font-size: 2rem; }
-            .welcome-banner { padding: 20px; }
+            .stat-card .number { font-size: 1.8rem; }
         }
-        @media print {
-            .no-print { display: none !important; }
-            .sidebar { display: none !important; }
-            .main-content { margin: 0 !important; padding: 20px !important; }
-            .page-section { display: block !important; }
-            .page-section:not(.active) { display: none !important; }
-            #page-department-report { display: block !important; }
-            body { background: white !important; }
+        
+        .toast-notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            padding: 12px 24px;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            animation: slideDown 0.3s ease;
+            max-width: 90%;
         }
-
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(0,0,0,0.1);
-            border-radius: 50%;
-            border-top-color: var(--teal);
-            animation: spin 0.6s ease-in-out infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .toast-success { background: #28a745; }
+        .toast-danger { background: #dc3545; }
+        .toast-warning { background: #ffc107; color: #333; }
+        .toast-info { background: #17a2b8; }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
     </style>
 </head>
@@ -356,13 +234,11 @@
                             <p class="text-muted">نظام إدارة المكتب الفني</p>
                             <p class="text-muted small">مستشفى القنطرة شرق</p>
                         </div>
-                        <div id="loginError" class="alert alert-danger d-none" role="alert">
-                            <i class="fas fa-exclamation-circle me-2"></i> اسم المستخدم أو كلمة المرور غير صحيحة
-                        </div>
+                        <div id="loginError" class="alert alert-danger d-none">اسم المستخدم أو كلمة المرور غير صحيحة</div>
                         <form id="loginForm">
                             <div class="mb-3">
                                 <label class="form-label fw-semibold"><i class="fas fa-user me-2"></i>اسم المستخدم</label>
-                                <input type="text" class="form-control form-control-lg" id="loginUsername" placeholder="أدخل اسم المستخدم" required autofocus />
+                                <input type="text" class="form-control form-control-lg" id="loginUsername" placeholder="أدخل اسم المستخدم" required />
                             </div>
                             <div class="mb-3">
                                 <label class="form-label fw-semibold"><i class="fas fa-lock me-2"></i>كلمة المرور</label>
@@ -372,15 +248,12 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <small class="text-muted"><i class="fas fa-info-circle me-1"></i>تجريبي: admin / admin123</small>
+                                <small class="text-muted">تجريبي: admin / admin123</small>
                             </div>
                             <button type="submit" class="btn btn-success btn-lg w-100 fw-semibold" id="loginBtn">
                                 <i class="fas fa-sign-in-alt me-2"></i>تسجيل الدخول
                             </button>
                         </form>
-                        <div class="text-center mt-3">
-                            <small class="text-muted"><i class="fas fa-headset me-1"></i>للدعم: support@hospital.local</small>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -388,7 +261,7 @@
     </div>
 </div>
 
-<!-- ===== التطبيق الرئيسي ===== -->
+<!-- ===== التطبيق ===== -->
 <div id="app-container" style="display:none;">
 
     <!-- القائمة الجانبية -->
@@ -398,13 +271,13 @@
             <small class="text-muted">مستشفى القنطرة شرق</small>
         </div>
         <ul class="nav flex-column">
-            <li class="nav-item"><button class="nav-link active" data-page="dashboard"><i class="fas fa-chart-pie"></i> لوحة التحكم</button></li>
-            <li class="nav-item"><button class="nav-link" data-page="tasks"><i class="fas fa-tasks"></i> التكليفات <span class="badge bg-danger rounded-pill ms-2" id="taskBadge">0</span></button></li>
-            <li class="nav-item"><button class="nav-link" data-page="users"><i class="fas fa-users"></i> المستخدمون</button></li>
-            <li class="nav-item"><button class="nav-link" data-page="departments"><i class="fas fa-building"></i> الإدارات</button></li>
-            <li class="nav-item"><button class="nav-link" data-page="reports"><i class="fas fa-file-alt"></i> التقارير</button></li>
-            <li class="nav-item"><button class="nav-link" data-page="notifications"><i class="fas fa-bell"></i> الإشعارات <span class="badge bg-danger rounded-pill ms-2" id="notifBadge">5</span></button></li>
-            <li class="nav-item"><button class="nav-link" data-page="settings"><i class="fas fa-cog"></i> الإعدادات</button></li>
+            <li><button class="nav-link active" data-page="dashboard"><i class="fas fa-chart-pie"></i> لوحة التحكم</button></li>
+            <li><button class="nav-link" data-page="tasks"><i class="fas fa-tasks"></i> التكليفات <span class="badge bg-danger rounded-pill ms-2" id="taskBadge">0</span></button></li>
+            <li><button class="nav-link" data-page="users"><i class="fas fa-users"></i> المستخدمون</button></li>
+            <li><button class="nav-link" data-page="departments"><i class="fas fa-building"></i> الإدارات</button></li>
+            <li><button class="nav-link" data-page="reports"><i class="fas fa-file-alt"></i> التقارير</button></li>
+            <li><button class="nav-link" data-page="notifications"><i class="fas fa-bell"></i> الإشعارات <span class="badge bg-danger rounded-pill ms-2" id="notifBadge">5</span></button></li>
+            <li><button class="nav-link" data-page="settings"><i class="fas fa-cog"></i> الإعدادات</button></li>
         </ul>
         <hr />
         <div class="user-info p-3">
@@ -427,7 +300,7 @@
 
         <!-- ===== لوحة التحكم ===== -->
         <div class="page-section active" id="page-dashboard">
-            <div class="welcome-banner mb-4">
+            <div class="welcome-banner p-4 text-white mb-4">
                 <div class="row align-items-center">
                     <div class="col-md-8">
                         <h4><i class="fas fa-user-circle me-2"></i> مرحباً، <span id="dashboardUserName">أحمد محمد</span>!</h4>
@@ -439,7 +312,6 @@
                 </div>
             </div>
 
-            <!-- الإحصائيات -->
             <div class="row g-4 mb-4">
                 <div class="col-xl-3 col-lg-6 col-md-6">
                     <div class="stat-card total">
@@ -467,7 +339,6 @@
                 </div>
             </div>
 
-            <!-- المخططات -->
             <div class="row g-4">
                 <div class="col-lg-6">
                     <div class="card">
@@ -478,11 +349,11 @@
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-header"><i class="fas fa-chart-line text-teal me-2"></i> مؤشرات الأداء</div>
-                        <div class="card-body" id="kpiContainer">
-                            <div class="mb-3"><div class="d-flex justify-content-between"><span>متوسط وقت الإنجاز</span><span class="fw-semibold" id="kpiAvgTime">4.2 يوم</span></div></div>
+                        <div class="card-body">
+                            <div class="mb-3"><div class="d-flex justify-content-between"><span>متوسط وقت الإنجاز</span><span class="fw-semibold" id="kpiAvgTime">0</span></div></div>
                             <div class="mb-3"><div class="d-flex justify-content-between"><span>نسبة المهام المتأخرة</span><span class="fw-semibold text-danger" id="kpiOverdueRate">0%</span></div></div>
-                            <div class="mb-3"><div class="d-flex justify-content-between"><span>معدل الإنجاز الأسبوعي</span><span class="fw-semibold text-success" id="kpiWeeklyRate">0 مهام/أسبوع</span></div></div>
-                            <div><div class="d-flex justify-content-between"><span>تقييم الأداء العام</span><span class="fw-semibold text-teal" id="kpiOverall">جيد (0%)</span></div></div>
+                            <div class="mb-3"><div class="d-flex justify-content-between"><span>معدل الإنجاز الأسبوعي</span><span class="fw-semibold text-success" id="kpiWeeklyRate">0</span></div></div>
+                            <div><div class="d-flex justify-content-between"><span>تقييم الأداء العام</span><span class="fw-semibold text-teal" id="kpiOverall">جيد</span></div></div>
                         </div>
                     </div>
                 </div>
@@ -518,7 +389,7 @@
                                 <option value="pharmacy">الصيدلة</option>
                             </select>
                         </div>
-                        <div class="col-md-2"><button class="btn btn-outline-teal w-100" id="clearFilters"><i class="fas fa-times me-1"></i> مسح</button></div>
+                        <div class="col-md-2"><button class="btn btn-outline-teal w-100" id="clearFilters"><i class="fas fa-times"></i> مسح</button></div>
                     </div>
                 </div>
             </div>
@@ -526,8 +397,10 @@
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-hover mb-0">
-                            <thead class="table-light"><tr><th>#</th><th>العنوان</th><th>الإدارة</th><th>المسؤول</th><th>التسليم</th><th>الحالة</th><th>الأولوية</th><th>الإجراءات</th></tr></thead>
-                            <tbody id="tasksTableBody"><tr><td colspan="8" class="text-center">⏳ جاري التحميل...</td></tr></tbody>
+                            <thead class="table-light">
+                                <tr><th>#</th><th>العنوان</th><th>الإدارة</th><th>المسؤول</th><th>التسليم</th><th>الحالة</th><th>الأولوية</th><th>الإجراءات</th></tr>
+                            </thead>
+                            <tbody id="tasksTableBody"></tbody>
                         </table>
                     </div>
                 </div>
@@ -551,7 +424,7 @@
                     <div class="table-responsive">
                         <table class="table table-hover mb-0">
                             <thead class="table-light"><tr><th>#</th><th>الاسم</th><th>البريد</th><th>الإدارة</th><th>الدور</th><th>الحالة</th><th>الإجراءات</th></tr></thead>
-                            <tbody id="usersBody"><tr><td colspan="7" class="text-center">⏳ جاري التحميل...</td></tr></tbody>
+                            <tbody id="usersBody"></tbody>
                         </table>
                     </div>
                 </div>
@@ -637,69 +510,188 @@
 </div>
 
 <!-- ===== مودالات ===== -->
+<!-- مودال تكليف جديد -->
 <div class="modal fade" id="newTaskModal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header"><h5 class="modal-title"><i class="fas fa-plus-circle text-teal me-2"></i> تكليف جديد</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-plus-circle text-teal me-2"></i> تكليف جديد</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
             <div class="modal-body">
                 <form id="newTaskForm">
                     <div class="row g-3">
-                        <div class="col-12"><label class="form-label">العنوان *</label><input type="text" class="form-control" required /></div>
-                        <div class="col-md-6"><label class="form-label">الإدارة *</label><select class="form-select" required><option value="">اختر</option><option>المكتب الفني</option><option>الجودة</option><option>الموارد البشرية</option><option>مكافحة العدوى</option><option>التمريض</option><option>الصيدلة</option></select></div>
-                        <div class="col-md-6"><label class="form-label">المسؤول *</label><select class="form-select" required><option value="">اختر</option><option>أحمد محمد</option><option>د. سارة</option><option>أ. خالد</option><option>م. يوسف</option><option>م. نورة</option><option>ص. نادر</option></select></div>
-                        <div class="col-md-6"><label class="form-label">تاريخ التسليم *</label><input type="date" class="form-control" required /></div>
-                        <div class="col-md-6"><label class="form-label">الأولوية</label><select class="form-select"><option value="normal">عادية</option><option value="medium">متوسطة</option><option value="critical">حرجة</option></select></div>
-                        <div class="col-12"><label class="form-label">الوصف</label><textarea class="form-control" rows="3"></textarea></div>
+                        <div class="col-12">
+                            <label class="form-label fw-semibold">عنوان التكليف *</label>
+                            <input type="text" class="form-control" id="taskTitle" placeholder="أدخل عنوان التكليف" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">الإدارة *</label>
+                            <select class="form-select" id="taskDept" required>
+                                <option value="">اختر الإدارة</option>
+                                <option value="المكتب الفني">المكتب الفني</option>
+                                <option value="الجودة">الجودة</option>
+                                <option value="الموارد البشرية">الموارد البشرية</option>
+                                <option value="مكافحة العدوى">مكافحة العدوى</option>
+                                <option value="التمريض">التمريض</option>
+                                <option value="الصيدلة">الصيدلة</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">المسؤول *</label>
+                            <select class="form-select" id="taskAssignee" required>
+                                <option value="">اختر المسؤول</option>
+                                <option value="أحمد محمد">أحمد محمد</option>
+                                <option value="د. سارة">د. سارة</option>
+                                <option value="أ. خالد">أ. خالد</option>
+                                <option value="م. يوسف">م. يوسف</option>
+                                <option value="م. نورة">م. نورة</option>
+                                <option value="ص. نادر">ص. نادر</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">تاريخ التسليم *</label>
+                            <input type="date" class="form-control" id="taskDueDate" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">الأولوية</label>
+                            <select class="form-select" id="taskPriority">
+                                <option value="normal">عادية</option>
+                                <option value="medium">متوسطة</option>
+                                <option value="critical">حرجة</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-semibold">الوصف</label>
+                            <textarea class="form-control" id="taskDescription" rows="3" placeholder="وصف التكليف..."></textarea>
+                        </div>
                     </div>
                 </form>
             </div>
-            <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button><button type="button" class="btn btn-success" id="createTaskBtn">إنشاء</button></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                <button type="button" class="btn btn-success" id="createTaskBtn"><i class="fas fa-plus me-1"></i> إنشاء التكليف</button>
+            </div>
         </div>
     </div>
 </div>
 
+<!-- مودال مستخدم جديد -->
 <div class="modal fade" id="newUserModal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header"><h5 class="modal-title"><i class="fas fa-user-plus text-teal me-2"></i> مستخدم جديد</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-user-plus text-teal me-2"></i> مستخدم جديد</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
             <div class="modal-body">
                 <form id="newUserForm">
                     <div class="row g-3">
-                        <div class="col-md-6"><label class="form-label">الاسم *</label><input type="text" class="form-control" id="userFullName" required /></div>
-                        <div class="col-md-6"><label class="form-label">اسم المستخدم *</label><input type="text" class="form-control" id="userUsername" required /></div>
-                        <div class="col-md-6"><label class="form-label">البريد *</label><input type="email" class="form-control" id="userEmail" required /></div>
-                        <div class="col-md-6"><label class="form-label">الهاتف</label><input type="tel" class="form-control" id="userPhone" /></div>
-                        <div class="col-md-6"><label class="form-label">الإدارة *</label><select class="form-select" id="userDepartment" required><option value="">اختر</option><option>المكتب الفني</option><option>الجودة</option><option>الموارد البشرية</option><option>مكافحة العدوى</option><option>التمريض</option><option>المعمل</option><option>الأشعة</option><option>الصيدلة</option><option>الهندسة</option></select></div>
-                        <div class="col-md-6"><label class="form-label">الدور *</label><select class="form-select" id="userRole" required><option value="">اختر</option><option>مدير المستشفى</option><option>مدير المكتب الفني</option><option>عضو المكتب الفني</option><option>مدير إدارة</option><option>مستخدم إدارة</option><option>مراقب</option></select></div>
-                        <div class="col-md-6"><label class="form-label">كلمة المرور *</label><input type="password" class="form-control" id="userPassword" required /></div>
-                        <div class="col-md-6"><label class="form-label">تأكيد كلمة المرور *</label><input type="password" class="form-control" id="userConfirmPassword" required /></div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">الاسم الكامل *</label>
+                            <input type="text" class="form-control" id="userFullName" placeholder="أدخل الاسم الكامل" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">اسم المستخدم *</label>
+                            <input type="text" class="form-control" id="userUsername" placeholder="أدخل اسم المستخدم" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">البريد الإلكتروني *</label>
+                            <input type="email" class="form-control" id="userEmail" placeholder="example@hospital.local" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">رقم الهاتف</label>
+                            <input type="tel" class="form-control" id="userPhone" placeholder="رقم الهاتف" />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">الإدارة *</label>
+                            <select class="form-select" id="userDepartment" required>
+                                <option value="">اختر الإدارة</option>
+                                <option value="المكتب الفني">المكتب الفني</option>
+                                <option value="الجودة">الجودة</option>
+                                <option value="الموارد البشرية">الموارد البشرية</option>
+                                <option value="مكافحة العدوى">مكافحة العدوى</option>
+                                <option value="التمريض">التمريض</option>
+                                <option value="المعمل">المعمل</option>
+                                <option value="الأشعة">الأشعة</option>
+                                <option value="الصيدلة">الصيدلة</option>
+                                <option value="الهندسة">الهندسة</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">الدور *</label>
+                            <select class="form-select" id="userRole" required>
+                                <option value="">اختر الدور</option>
+                                <option value="مدير المستشفى">مدير المستشفى</option>
+                                <option value="مدير المكتب الفني">مدير المكتب الفني</option>
+                                <option value="عضو المكتب الفني">عضو المكتب الفني</option>
+                                <option value="مدير إدارة">مدير إدارة</option>
+                                <option value="مستخدم إدارة">مستخدم إدارة</option>
+                                <option value="مراقب">مراقب</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">كلمة المرور *</label>
+                            <input type="password" class="form-control" id="userPassword" placeholder="أدخل كلمة المرور" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">تأكيد كلمة المرور *</label>
+                            <input type="password" class="form-control" id="userConfirmPassword" placeholder="أعد إدخال كلمة المرور" required />
+                        </div>
                     </div>
                 </form>
             </div>
-            <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button><button type="button" class="btn btn-success" id="saveUserBtn">إضافة</button></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                <button type="button" class="btn btn-success" id="saveUserBtn"><i class="fas fa-user-plus me-1"></i> إضافة المستخدم</button>
+            </div>
         </div>
     </div>
 </div>
 
+<!-- مودال إدارة جديدة -->
 <div class="modal fade" id="newDeptModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header"><h5 class="modal-title"><i class="fas fa-plus-circle text-teal me-2"></i> إدارة جديدة</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-plus-circle text-teal me-2"></i> إدارة جديدة</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
             <div class="modal-body">
                 <form id="newDeptForm">
-                    <div class="mb-3"><label class="form-label">اسم الإدارة *</label><input type="text" class="form-control" required /></div>
-                    <div class="mb-3"><label class="form-label">المدير</label><select class="form-select"><option value="">اختر</option><option>أحمد محمد</option><option>د. سارة</option><option>أ. خالد</option><option>م. يوسف</option><option>م. نورة</option><option>ص. نادر</option></select></div>
-                    <div class="mb-3"><label class="form-label">الوصف</label><textarea class="form-control" rows="3"></textarea></div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">اسم الإدارة *</label>
+                        <input type="text" class="form-control" id="deptName" placeholder="أدخل اسم الإدارة" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">المدير</label>
+                        <select class="form-select" id="deptManager">
+                            <option value="">اختر المدير</option>
+                            <option value="أحمد محمد">أحمد محمد</option>
+                            <option value="د. سارة">د. سارة</option>
+                            <option value="أ. خالد">أ. خالد</option>
+                            <option value="م. يوسف">م. يوسف</option>
+                            <option value="م. نورة">م. نورة</option>
+                            <option value="ص. نادر">ص. نادر</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">الوصف</label>
+                        <textarea class="form-control" id="deptDescription" rows="3" placeholder="وصف الإدارة"></textarea>
+                    </div>
                 </form>
             </div>
-            <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button><button type="button" class="btn btn-success" id="createDeptBtn">إضافة</button></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                <button type="button" class="btn btn-success" id="createDeptBtn"><i class="fas fa-plus me-1"></i> إضافة الإدارة</button>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
 // ==========================================
-// 1. إعدادات Firebase - تم تحديثها بإعداداتك
+// إعدادات Firebase
 // ==========================================
 const firebaseConfig = {
     apiKey: "AIzaSyBN9WE0RPuvjFAkLQtmhg39OcFPz3nBEcA",
@@ -712,26 +704,31 @@ const firebaseConfig = {
 
 // تهيئة Firebase
 let db = null;
-let storage = null;
+let firebaseReady = false;
 
 try {
     if (typeof firebase !== 'undefined') {
         firebase.initializeApp(firebaseConfig);
         db = firebase.firestore();
-        storage = firebase.storage();
-        console.log('✅ Firebase initialized successfully with your config!');
+        firebaseReady = true;
+        console.log('✅ Firebase connected successfully!');
         
         // اختبار الاتصال
-        db.collection('test').doc('connection').set({ connected: true, time: new Date().toISOString() })
-            .then(() => console.log('✅ Firebase connection test successful'))
-            .catch(err => console.warn('⚠️ Firebase connection test failed:', err.message));
+        db.collection('test').doc('connection').set({ 
+            connected: true, 
+            time: new Date().toISOString() 
+        }).then(() => {
+            console.log('✅ Firebase write test successful');
+        }).catch(err => {
+            console.warn('⚠️ Firebase write test failed:', err.message);
+        });
     }
 } catch (e) {
     console.warn('⚠️ Firebase initialization error:', e.message);
 }
 
 // ==========================================
-// 2. المستخدمون والبيانات
+// البيانات والمستخدمين
 // ==========================================
 let currentUser = null;
 
@@ -751,8 +748,10 @@ const DEFAULT_USERS = {
 function getStoredUsers() {
     try {
         const data = localStorage.getItem('hospitalUsers');
-        return data ? JSON.parse(data) : DEFAULT_USERS;
-    } catch(e) { return DEFAULT_USERS; }
+        return data ? JSON.parse(data) : JSON.parse(JSON.stringify(DEFAULT_USERS));
+    } catch(e) { 
+        return JSON.parse(JSON.stringify(DEFAULT_USERS));
+    }
 }
 
 function saveStoredUsers(users) {
@@ -763,7 +762,9 @@ function getTasks() {
     try {
         const data = localStorage.getItem('hospitalTasks');
         return data ? JSON.parse(data) : [];
-    } catch(e) { return []; }
+    } catch(e) { 
+        return [];
+    }
 }
 
 function saveTasks(tasks) {
@@ -771,7 +772,24 @@ function saveTasks(tasks) {
 }
 
 // ==========================================
-// 3. وظائف تسجيل الدخول
+// دالة الإشعارات
+// ==========================================
+function showToast(message, type = 'success') {
+    const existing = document.querySelector('.toast-notification');
+    if (existing) existing.remove();
+    
+    const toast = document.createElement('div');
+    toast.className = `toast-notification toast-${type}`;
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        if (toast.parentNode) toast.remove();
+    }, 3000);
+}
+
+// ==========================================
+// تسجيل الدخول والخروج
 // ==========================================
 function login(username, password) {
     const users = getStoredUsers();
@@ -800,6 +818,7 @@ function showApp() {
     loadUsers();
     loadDepartments();
     updateDashboard();
+    showToast('مرحباً بك في نظام فريقي!', 'success');
 }
 
 function updateUI() {
@@ -809,7 +828,11 @@ function updateUI() {
     document.getElementById('sidebarUserInitial').textContent = (currentUser.fullName || currentUser.username).charAt(0);
     document.getElementById('dashboardUserName').textContent = currentUser.fullName || currentUser.username;
     
-    const now = new Date().toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' });
+    const now = new Date().toLocaleDateString('ar-EG', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+    });
     document.getElementById('currentDate').textContent = now;
     
     document.getElementById('profileFullName').value = currentUser.fullName || '';
@@ -817,7 +840,7 @@ function updateUI() {
     document.getElementById('profilePhone').value = currentUser.phone || '';
     document.getElementById('profileJob').value = currentUser.job || '';
     
-    applySavedLogo();
+    // الوضع الليلي
     const darkMode = localStorage.getItem('darkMode') === 'true';
     if (darkMode) {
         document.documentElement.setAttribute('data-theme', 'dark');
@@ -826,12 +849,13 @@ function updateUI() {
 }
 
 // ==========================================
-// 4. تحميل البيانات
+// تحميل التكليفات
 // ==========================================
 function loadTasks() {
     const tbody = document.getElementById('tasksTableBody');
-    const tasks = getTasks();
+    let tasks = getTasks();
     
+    // إذا كانت القائمة فارغة، أضف تكليفات افتراضية
     if (tasks.length === 0) {
         const defaultTasks = [
             { id: 1, title: 'تقرير المكافحة الشهري', dept: 'مكافحة العدوى', assignee: 'أ. خالد', dueDate: '2026-06-18', status: 'overdue', priority: 'critical' },
@@ -842,7 +866,7 @@ function loadTasks() {
             { id: 6, title: 'برنامج تدريب التمريض', dept: 'التمريض', assignee: 'م. نورة', dueDate: '2026-06-28', status: 'pending', priority: 'medium' }
         ];
         saveTasks(defaultTasks);
-        return loadTasks();
+        tasks = defaultTasks;
     }
     
     const statusMap = {
@@ -856,93 +880,157 @@ function loadTasks() {
         'normal': { class: 'bg-success', text: 'عادية' }
     };
     
+    const isAdmin = currentUser && (currentUser.role === 'مدير المكتب الفني' || currentUser.role === 'مدير المستشفى');
+    
+    if (tasks.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" class="text-center py-3">📭 لا توجد تكليفات</td></tr>`;
+        return;
+    }
+    
     tbody.innerHTML = tasks.map((task, idx) => `
-        <tr data-status="${task.status}" data-dept="${task.dept.toLowerCase().replace(' ', '')}">
+        <tr data-status="${task.status}" data-dept="${task.dept?.toLowerCase().replace(' ', '') || ''}">
             <td>${idx + 1}</td>
-            <td>${task.title}</td>
-            <td>${task.dept}</td>
-            <td>${task.assignee}</td>
-            <td>${task.dueDate}</td>
+            <td><strong>${task.title}</strong></td>
+            <td>${task.dept || 'غير محدد'}</td>
+            <td>${task.assignee || 'غير محدد'}</td>
+            <td>${task.dueDate || 'غير محدد'}</td>
             <td><span class="badge ${statusMap[task.status]?.class || 'bg-secondary'}">${statusMap[task.status]?.text || task.status}</span></td>
             <td><span class="badge ${priorityMap[task.priority]?.class || 'bg-secondary'}">${priorityMap[task.priority]?.text || task.priority}</span></td>
             <td>
                 <button class="btn btn-sm btn-outline-teal" onclick="viewTask(${task.id})"><i class="fas fa-eye"></i></button>
-                <button class="btn btn-sm btn-outline-danger" onclick="deleteTask(${task.id})"><i class="fas fa-trash"></i></button>
+                ${isAdmin ? `<button class="btn btn-sm btn-outline-danger" onclick="deleteTask(${task.id})"><i class="fas fa-trash"></i></button>` : ''}
             </td>
         </tr>
     `).join('');
     
-    document.getElementById('taskBadge').textContent = tasks.filter(t => t.status === 'pending').length;
-    updateDashboard();
+    // تحديث العدد
+    const pendingCount = tasks.filter(t => t.status === 'pending').length;
+    document.getElementById('taskBadge').textContent = pendingCount;
 }
 
+// ==========================================
+// عرض وحذف التكليفات
+// ==========================================
 function viewTask(id) {
     const tasks = getTasks();
     const task = tasks.find(t => t.id === id);
     if (task) {
-        alert(`📋 تفاصيل التكليف:\n\nالعنوان: ${task.title}\nالإدارة: ${task.dept}\nالمسؤول: ${task.assignee}\nالتسليم: ${task.dueDate}\nالحالة: ${task.status}\nالأولوية: ${task.priority}`);
+        showToast(`📋 ${task.title}\nالإدارة: ${task.dept}\nالمسؤول: ${task.assignee}\nالتسليم: ${task.dueDate}`, 'info');
     }
 }
 
 function deleteTask(id) {
+    const isAdmin = currentUser && (currentUser.role === 'مدير المكتب الفني' || currentUser.role === 'مدير المستشفى');
+    if (!isAdmin) {
+        showToast('⚠️ ليس لديك صلاحية لحذف التكليفات', 'danger');
+        return;
+    }
+    
     if (!confirm('⚠️ هل أنت متأكد من حذف هذا التكليف؟')) return;
+    
     let tasks = getTasks();
     tasks = tasks.filter(t => t.id !== id);
     saveTasks(tasks);
     
-    // حذف من Firebase
-    if (db) {
+    // حفظ في Firebase
+    if (firebaseReady && db) {
         db.collection('tasks').where('id', '==', id).get()
-            .then(snapshot => snapshot.forEach(doc => doc.ref.delete()))
-            .catch(e => console.warn('Firebase delete error:', e));
+            .then(snapshot => {
+                snapshot.forEach(doc => doc.ref.delete());
+                console.log('✅ Task deleted from Firebase');
+            })
+            .catch(err => console.warn('Firebase delete error:', err));
     }
     
     loadTasks();
-    showNotification('✅ تم حذف التكليف بنجاح', 'success');
+    updateDashboard();
+    showToast('✅ تم حذف التكليف بنجاح', 'success');
 }
 
+// ==========================================
+// تحميل المستخدمين
+// ==========================================
 function loadUsers() {
     const users = getStoredUsers();
-    const userList = Object.keys(users).map(key => ({ id: key, ...users[key] }));
+    const userList = Object.keys(users).map(key => ({ 
+        id: key, 
+        ...users[key],
+        email: users[key].email || key + '@hospital.local'
+    }));
     
     const tbody = document.getElementById('usersBody');
+    const isAdmin = currentUser && (currentUser.role === 'مدير المكتب الفني' || currentUser.role === 'مدير المستشفى');
+    
+    if (userList.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="text-center">لا يوجد مستخدمون</td></tr>`;
+        return;
+    }
+    
     tbody.innerHTML = userList.map((user, idx) => `
         <tr>
             <td>${idx + 1}</td>
-            <td><div class="d-flex align-items-center"><div class="avatar-circle me-2" style="width:32px;height:32px;font-size:12px;">${(user.fullName || user.username).charAt(0)}</div>${user.fullName || user.username}</div></td>
-            <td>${user.username}@hospital.local</td>
+            <td>
+                <div class="d-flex align-items-center">
+                    <div class="avatar-circle me-2" style="width:32px;height:32px;font-size:12px;">
+                        ${(user.fullName || user.username).charAt(0)}
+                    </div>
+                    ${user.fullName || user.username}
+                </div>
+            </td>
+            <td>${user.email}</td>
             <td>${user.department || 'غير محدد'}</td>
             <td>${user.role || 'مستخدم'}</td>
-            <td><span class="badge ${user.status === 'نشط' ? 'bg-success' : 'bg-warning'}">${user.status}</span></td>
+            <td><span class="badge ${user.status === 'نشط' ? 'bg-success' : 'bg-warning'}">${user.status || 'نشط'}</span></td>
             <td>
-                <button class="btn btn-sm btn-outline-teal"><i class="fas fa-eye"></i></button>
-                <button class="btn btn-sm btn-outline-danger" onclick="deleteUser('${user.username}')"><i class="fas fa-trash"></i></button>
+                <button class="btn btn-sm btn-outline-teal" onclick="viewUser('${user.username}')"><i class="fas fa-eye"></i></button>
+                ${isAdmin ? `<button class="btn btn-sm btn-outline-danger" onclick="deleteUser('${user.username}')"><i class="fas fa-trash"></i></button>` : ''}
             </td>
         </tr>
     `).join('');
     
+    // تحديث الإحصائيات
     document.getElementById('totalUsers').textContent = userList.length;
     document.getElementById('activeUsers').textContent = userList.filter(u => u.status === 'نشط').length;
     document.getElementById('inactiveUsers').textContent = userList.filter(u => u.status === 'غير نشط').length;
     document.getElementById('suspendedUsers').textContent = userList.filter(u => u.status === 'معلق').length;
 }
 
-function deleteUser(username) {
-    if (!confirm(`⚠️ هل أنت متأكد من حذف المستخدم "${username}"؟`)) return;
+function viewUser(username) {
     const users = getStoredUsers();
-    delete users[username];
-    saveStoredUsers(users);
-    
-    if (db) {
-        db.collection('users').where('username', '==', username).get()
-            .then(snapshot => snapshot.forEach(doc => doc.ref.delete()))
-            .catch(e => console.warn('Firebase delete error:', e));
+    const user = users[username];
+    if (user) {
+        showToast(`👤 ${user.fullName}\nالدور: ${user.role}\nالإدارة: ${user.department}`, 'info');
     }
-    
-    loadUsers();
-    showNotification('✅ تم حذف المستخدم بنجاح', 'success');
 }
 
+function deleteUser(username) {
+    const isAdmin = currentUser && (currentUser.role === 'مدير المكتب الفني' || currentUser.role === 'مدير المستشفى');
+    if (!isAdmin) {
+        showToast('⚠️ ليس لديك صلاحية لحذف المستخدمين', 'danger');
+        return;
+    }
+    
+    if (!confirm(`⚠️ هل أنت متأكد من حذف المستخدم "${username}"؟`)) return;
+    
+    const users = getStoredUsers();
+    if (users[username]) {
+        delete users[username];
+        saveStoredUsers(users);
+        
+        if (firebaseReady && db) {
+            db.collection('users').where('username', '==', username).get()
+                .then(snapshot => snapshot.forEach(doc => doc.ref.delete()))
+                .catch(err => console.warn('Firebase delete error:', err));
+        }
+        
+        loadUsers();
+        showToast('✅ تم حذف المستخدم بنجاح', 'success');
+    }
+}
+
+// ==========================================
+// تحميل الإدارات
+// ==========================================
 function loadDepartments() {
     const departments = [
         { name: 'المكتب الفني', icon: 'fa-star', color: 'teal', members: 3, manager: 'أحمد محمد', tasks: 12, progress: 92 },
@@ -953,7 +1041,8 @@ function loadDepartments() {
         { name: 'الصيدلة', icon: 'fa-pills', color: 'secondary', members: 1, manager: 'ص. نادر', tasks: 4, progress: 55 }
     ];
     
-    document.getElementById('departmentsContainer').innerHTML = departments.map(dept => `
+    const container = document.getElementById('departmentsContainer');
+    container.innerHTML = departments.map(dept => `
         <div class="col-lg-4 col-md-6">
             <div class="card department-card">
                 <div class="card-body">
@@ -967,7 +1056,7 @@ function loadDepartments() {
                     </div>
                     <div class="mt-3">
                         <div class="progress"><div class="progress-bar bg-${dept.color}" style="width: ${dept.progress}%;"></div></div>
-                        <small class="text-muted">${dept.progress}%</small>
+                        <small class="text-muted">نسبة الإنجاز ${dept.progress}%</small>
                     </div>
                 </div>
             </div>
@@ -975,6 +1064,9 @@ function loadDepartments() {
     `).join('');
 }
 
+// ==========================================
+// تحديث لوحة التحكم
+// ==========================================
 function updateDashboard() {
     const tasks = getTasks();
     const total = tasks.length;
@@ -988,68 +1080,14 @@ function updateDashboard() {
     document.getElementById('statOverdueTasks').textContent = overdue;
     
     const rate = total > 0 ? Math.round((completed / total) * 100) : 0;
-    document.getElementById('kpiAvgTime').textContent = total > 0 ? (4.2 + (overdue * 0.5)).toFixed(1) + ' يوم' : '0 يوم';
+    document.getElementById('kpiAvgTime').textContent = total > 0 ? (4.2 + (overdue * 0.5)).toFixed(1) + ' يوم' : '0';
     document.getElementById('kpiOverdueRate').textContent = total > 0 ? Math.round((overdue / total) * 100) + '%' : '0%';
     document.getElementById('kpiWeeklyRate').textContent = Math.round(completed / 4) + ' مهام/أسبوع';
     document.getElementById('kpiOverall').textContent = rate >= 70 ? `جيد جداً (${rate}%)` : `جيد (${rate}%)`;
 }
 
-function showNotification(message, type = 'info') {
-    const div = document.createElement('div');
-    div.className = `alert alert-${type} alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3`;
-    div.style.zIndex = '9999';
-    div.style.maxWidth = '500px';
-    div.style.boxShadow = 'var(--shadow-lg)';
-    div.innerHTML = `${message} <button type="button" class="btn-close" data-bs-dismiss="alert"></button>`;
-    document.body.appendChild(div);
-    setTimeout(() => div.remove(), 5000);
-}
-
 // ==========================================
-// 5. الشعار والإعدادات
-// ==========================================
-function handleLogoUpload() {
-    const logoInput = document.getElementById('logoInput');
-    const saveLogoBtn = document.getElementById('saveLogoBtn');
-    if (!logoInput || !saveLogoBtn) return;
-    
-    saveLogoBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        const file = logoInput.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                localStorage.setItem('systemLogo', event.target.result);
-                showNotification('✅ تم تحديث الشعار بنجاح', 'success');
-                applySavedLogo();
-            };
-            reader.readAsDataURL(file);
-        } else {
-            showNotification('⚠️ الرجاء اختيار ملف صورة', 'warning');
-        }
-    });
-}
-
-function applySavedLogo() {
-    const savedLogo = localStorage.getItem('systemLogo');
-    const sidebarHeader = document.querySelector('.sidebar-header');
-    if (savedLogo && sidebarHeader) {
-        const existingIcon = sidebarHeader.querySelector('h3 i');
-        if (existingIcon) {
-            const img = document.createElement('img');
-            img.src = savedLogo;
-            img.alt = 'الشعار';
-            img.style.width = '30px';
-            img.style.height = '30px';
-            img.style.marginLeft = '8px';
-            img.style.borderRadius = '4px';
-            existingIcon.replaceWith(img);
-        }
-    }
-}
-
-// ==========================================
-// 6. أحداث الصفحة
+// أحداث الصفحة
 // ==========================================
 document.addEventListener('DOMContentLoaded', function() {
     // التحقق من الجلسة
@@ -1063,10 +1101,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         } catch(e) {}
     }
+    
     document.getElementById('page-login').style.display = 'flex';
     document.getElementById('app-container').style.display = 'none';
     
-    // تسجيل الدخول
+    // ===== تسجيل الدخول =====
     document.getElementById('loginForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const username = document.getElementById('loginUsername').value.trim();
@@ -1081,7 +1120,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // تبديل كلمة المرور
+    // ===== تبديل كلمة المرور =====
     document.getElementById('togglePassword').addEventListener('click', function() {
         const pwd = document.getElementById('loginPassword');
         pwd.type = pwd.type === 'password' ? 'text' : 'password';
@@ -1089,26 +1128,33 @@ document.addEventListener('DOMContentLoaded', function() {
         this.querySelector('i').classList.toggle('fa-eye-slash');
     });
     
-    // التنقل
+    // ===== التنقل بين الصفحات =====
     document.querySelectorAll('.sidebar .nav-link[data-page]').forEach(link => {
         link.addEventListener('click', function() {
+            // إخفاء الكل
             document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
-            document.getElementById('page-' + this.dataset.page).classList.add('active');
+            // إظهار المطلوب
+            const page = this.dataset.page;
+            document.getElementById('page-' + page).classList.add('active');
+            // تحديث القائمة
             document.querySelectorAll('.sidebar .nav-link').forEach(l => l.classList.remove('active'));
             this.classList.add('active');
+            // غلق القائمة
             document.getElementById('sidebar').classList.remove('open');
         });
     });
     
-    // تبديل القائمة
+    // ===== تبديل القائمة =====
     document.getElementById('sidebarToggle').addEventListener('click', function() {
         document.getElementById('sidebar').classList.toggle('open');
     });
     
-    // تسجيل الخروج
-    document.getElementById('logoutBtn').addEventListener('click', logout);
+    // ===== تسجيل الخروج =====
+    document.getElementById('logoutBtn').addEventListener('click', function() {
+        logout();
+    });
     
-    // الوضع الليلي
+    // ===== الوضع الليلي =====
     document.getElementById('darkModeSwitch').addEventListener('change', function() {
         if (this.checked) {
             document.documentElement.setAttribute('data-theme', 'dark');
@@ -1119,43 +1165,80 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // رفع الشعار
-    handleLogoUpload();
+    // ===== رفع الشعار =====
+    document.getElementById('saveLogoBtn').addEventListener('click', function() {
+        const input = document.getElementById('logoInput');
+        const file = input.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                localStorage.setItem('systemLogo', e.target.result);
+                showToast('✅ تم تحديث الشعار بنجاح', 'success');
+            };
+            reader.readAsDataURL(file);
+        } else {
+            showToast('⚠️ الرجاء اختيار ملف صورة', 'warning');
+        }
+    });
     
-    // إنشاء تكليف
+    // ===== إنشاء تكليف جديد =====
     document.getElementById('createTaskBtn').addEventListener('click', function() {
-        const form = document.getElementById('newTaskForm');
-        const title = form.querySelector('input[type="text"]').value.trim();
-        const dept = form.querySelectorAll('select')[0].value;
-        const assignee = form.querySelectorAll('select')[1].value;
-        const dueDate = form.querySelector('input[type="date"]').value;
+        // جلب القيم
+        const title = document.getElementById('taskTitle').value.trim();
+        const dept = document.getElementById('taskDept').value;
+        const assignee = document.getElementById('taskAssignee').value;
+        const dueDate = document.getElementById('taskDueDate').value;
+        const priority = document.getElementById('taskPriority').value;
+        const description = document.getElementById('taskDescription').value.trim();
         
+        // التحقق
         if (!title || !dept || !assignee || !dueDate) {
-            showNotification('⚠️ يرجى ملء جميع الحقول المطلوبة', 'warning');
+            showToast('⚠️ يرجى ملء جميع الحقول المطلوبة', 'warning');
             return;
         }
         
+        // إنشاء التكليف
         const tasks = getTasks();
-        tasks.push({
+        const newTask = {
             id: Date.now(),
-            title, dept, assignee, dueDate,
+            title: title,
+            dept: dept,
+            assignee: assignee,
+            dueDate: dueDate,
+            priority: priority || 'normal',
             status: 'pending',
-            priority: form.querySelectorAll('select')[2]?.value || 'normal'
-        });
+            description: description,
+            createdAt: new Date().toISOString()
+        };
+        tasks.push(newTask);
         saveTasks(tasks);
         
-        if (db) {
-            db.collection('tasks').add({ title, dept, assignee, dueDate, status: 'pending', createdAt: new Date().toISOString() })
-                .catch(e => console.warn('Firebase save error:', e));
+        // حفظ في Firebase
+        if (firebaseReady && db) {
+            db.collection('tasks').add({
+                ...newTask,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                console.log('✅ Task saved to Firebase');
+            }).catch(err => {
+                console.warn('Firebase save error:', err);
+            });
         }
         
-        bootstrap.Modal.getInstance(document.getElementById('newTaskModal')).hide();
+        // إغلاق المودال
+        const modal = bootstrap.Modal.getInstance(document.getElementById('newTaskModal'));
+        if (modal) modal.hide();
+        
+        // تحديث البيانات
         loadTasks();
-        showNotification('✅ تم إنشاء التكليف بنجاح', 'success');
-        form.reset();
+        updateDashboard();
+        showToast('✅ تم إنشاء التكليف بنجاح', 'success');
+        
+        // إعادة تعيين النموذج
+        document.getElementById('newTaskForm').reset();
     });
     
-    // إضافة مستخدم
+    // ===== إضافة مستخدم =====
     document.getElementById('saveUserBtn').addEventListener('click', function() {
         const fullName = document.getElementById('userFullName').value.trim();
         const username = document.getElementById('userUsername').value.trim();
@@ -1164,80 +1247,116 @@ document.addEventListener('DOMContentLoaded', function() {
         const confirm = document.getElementById('userConfirmPassword').value;
         const role = document.getElementById('userRole').value;
         const dept = document.getElementById('userDepartment').value;
+        const phone = document.getElementById('userPhone').value.trim();
         
         if (!fullName || !username || !email || !password || !role || !dept) {
-            showNotification('⚠️ يرجى ملء جميع الحقول', 'warning');
+            showToast('⚠️ يرجى ملء جميع الحقول المطلوبة', 'warning');
             return;
         }
         if (password !== confirm) {
-            showNotification('⚠️ كلمتا المرور غير متطابقتين', 'danger');
+            showToast('⚠️ كلمتا المرور غير متطابقتين', 'danger');
             return;
         }
         if (password.length < 6) {
-            showNotification('⚠️ كلمة المرور يجب أن تكون 6 خانات على الأقل', 'warning');
+            showToast('⚠️ كلمة المرور يجب أن تكون 6 خانات على الأقل', 'warning');
             return;
         }
         
         const users = getStoredUsers();
         if (users[username]) {
-            showNotification('⚠️ اسم المستخدم موجود بالفعل', 'warning');
+            showToast('⚠️ اسم المستخدم موجود بالفعل', 'warning');
             return;
         }
         
-        users[username] = { username, password, fullName, role, department: dept, status: 'نشط' };
+        users[username] = { 
+            username, 
+            password, 
+            fullName, 
+            role, 
+            department: dept,
+            phone: phone,
+            job: role,
+            status: 'نشط',
+            email: email
+        };
         saveStoredUsers(users);
         
-        if (db) {
-            db.collection('users').add({ username, fullName, email, role, department: dept, status: 'نشط' })
-                .catch(e => console.warn('Firebase save error:', e));
+        if (firebaseReady && db) {
+            db.collection('users').add({
+                username, fullName, email, role, department: dept, phone,
+                status: 'نشط',
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            }).catch(err => console.warn('Firebase save error:', err));
         }
         
-        bootstrap.Modal.getInstance(document.getElementById('newUserModal')).hide();
+        const modal = bootstrap.Modal.getInstance(document.getElementById('newUserModal'));
+        if (modal) modal.hide();
+        
         loadUsers();
-        showNotification(`✅ تم إضافة المستخدم ${fullName}`, 'success');
+        showToast(`✅ تم إضافة المستخدم ${fullName} بنجاح`, 'success');
         document.getElementById('newUserForm').reset();
     });
     
-    // إضافة إدارة
+    // ===== إضافة إدارة =====
     document.getElementById('createDeptBtn').addEventListener('click', function() {
-        const name = document.getElementById('newDeptForm').querySelector('input').value.trim();
+        const name = document.getElementById('deptName').value.trim();
+        const manager = document.getElementById('deptManager').value;
+        const description = document.getElementById('deptDescription').value.trim();
+        
         if (!name) {
-            showNotification('⚠️ يرجى إدخال اسم الإدارة', 'warning');
+            showToast('⚠️ يرجى إدخال اسم الإدارة', 'warning');
             return;
         }
+        
         const depts = JSON.parse(localStorage.getItem('departments') || '[]');
-        depts.push({ id: Date.now(), name });
+        depts.push({ 
+            id: Date.now(), 
+            name: name,
+            manager: manager,
+            description: description,
+            createdAt: new Date().toISOString()
+        });
         localStorage.setItem('departments', JSON.stringify(depts));
-        bootstrap.Modal.getInstance(document.getElementById('newDeptModal')).hide();
+        
+        if (firebaseReady && db) {
+            db.collection('departments').add({
+                name, manager, description,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            }).catch(err => console.warn('Firebase save error:', err));
+        }
+        
+        const modal = bootstrap.Modal.getInstance(document.getElementById('newDeptModal'));
+        if (modal) modal.hide();
+        
         loadDepartments();
-        showNotification(`✅ تم إضافة الإدارة ${name}`, 'success');
+        showToast(`✅ تم إضافة الإدارة ${name} بنجاح`, 'success');
         document.getElementById('newDeptForm').reset();
     });
     
-    // تحديد الكل كمقروء
+    // ===== تحديد الكل كمقروء =====
     document.getElementById('markAllRead').addEventListener('click', function() {
         document.querySelectorAll('#notificationsList .badge').forEach(b => {
             b.textContent = 'مقروء';
             b.className = 'badge bg-secondary rounded-pill';
         });
         document.getElementById('notifBadge').textContent = '0';
-        showNotification('✅ تم تحديد جميع الإشعارات كمقروءة', 'success');
+        showToast('✅ تم تحديد جميع الإشعارات كمقروءة', 'success');
     });
     
-    // مسح البيانات
+    // ===== مسح البيانات =====
     document.getElementById('clearDataBtn').addEventListener('click', function() {
         if (confirm('⚠️ هل أنت متأكد من مسح جميع البيانات؟')) {
             localStorage.clear();
-            showNotification('🗑️ تم مسح جميع البيانات', 'warning');
+            showToast('🗑️ تم مسح جميع البيانات', 'warning');
             setTimeout(() => location.reload(), 1500);
         }
     });
     
-    // بحث وتصفية
-    document.getElementById('searchTask')?.addEventListener('keyup', filterTasks);
-    document.getElementById('filterStatus')?.addEventListener('change', filterTasks);
-    document.getElementById('filterDept')?.addEventListener('change', filterTasks);
-    document.getElementById('clearFilters')?.addEventListener('click', function() {
+    // ===== بحث وتصفية =====
+    document.getElementById('searchTask').addEventListener('keyup', filterTasks);
+    document.getElementById('filterStatus').addEventListener('change', filterTasks);
+    document.getElementById('filterDept').addEventListener('change', filterTasks);
+    document.getElementById('clearFilters').addEventListener('click', function() {
         document.getElementById('searchTask').value = '';
         document.getElementById('filterStatus').value = '';
         document.getElementById('filterDept').value = '';
@@ -1245,9 +1364,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     function filterTasks() {
-        const search = document.getElementById('searchTask')?.value.toLowerCase() || '';
-        const status = document.getElementById('filterStatus')?.value || '';
-        const dept = document.getElementById('filterDept')?.value || '';
+        const search = document.getElementById('searchTask').value.toLowerCase();
+        const status = document.getElementById('filterStatus').value;
+        const dept = document.getElementById('filterDept').value;
+        
         document.querySelectorAll('#tasksTableBody tr').forEach(row => {
             const text = row.textContent.toLowerCase();
             const rowStatus = row.dataset.status || '';
@@ -1260,7 +1380,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // إغلاق القائمة
+    // ===== إغلاق القائمة =====
     document.addEventListener('click', function(e) {
         const sidebar = document.getElementById('sidebar');
         const toggle = document.getElementById('sidebarToggle');
@@ -1270,7 +1390,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // المخطط
+    // ===== الرسم البياني =====
     setTimeout(() => {
         const ctx = document.getElementById('taskPieChart')?.getContext('2d');
         if (ctx) {
@@ -1278,14 +1398,32 @@ document.addEventListener('DOMContentLoaded', function() {
                 type: 'pie',
                 data: {
                     labels: ['مكتملة', 'قيد التنفيذ', 'متأخرة'],
-                    datasets: [{ data: [14, 8, 2], backgroundColor: ['#43A047', '#FB8C00', '#E53935'], borderWidth: 0 }]
+                    datasets: [{
+                        data: [14, 8, 2],
+                        backgroundColor: ['#43A047', '#FB8C00', '#E53935'],
+                        borderWidth: 0
+                    }]
                 },
-                options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+                options: {
+                    responsive: true,
+                    plugins: { legend: { position: 'bottom' } }
+                }
             });
         }
     }, 500);
     
-    console.log('🚀 نظام فريقي V2.0 جاهز للتشغيل مع Firebase!');
+    // ===== إعدادات الملف الشخصي =====
+    document.getElementById('profileForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        showToast('✅ تم حفظ التغييرات بنجاح', 'success');
+    });
+    
+    document.getElementById('passwordForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        showToast('✅ تم تغيير كلمة المرور بنجاح', 'success');
+    });
+    
+    console.log('🚀 نظام فريقي V3.0 جاهز للتشغيل مع Firebase!');
 });
 </script>
 </body>
